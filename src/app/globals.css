@@ -149,7 +149,7 @@
   }
   
   .text-gradient {
-    @apply bg-gradient-to-r from-primary to-teal-300 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-green-500 to-teal-400 bg-clip-text text-transparent;
   }
 
   .bg-grid {

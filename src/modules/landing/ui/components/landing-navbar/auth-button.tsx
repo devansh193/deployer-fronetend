@@ -14,9 +14,9 @@ export const AuthButton = () => {
       </SignedIn>
       <SignedOut>
         <SignInButton>
-          <Button variant={"outline"}>
-            <UserCircleIcon />
-            Sign in
+          <Button className="bg-gradient-to-r from-green-500 to-teal-400 hover:cursor-pointer">
+            <UserCircleIcon className="text-black" />
+            <h1 className="font-geist font-medium text-black">Sign in</h1>
           </Button>
         </SignInButton>
       </SignedOut>

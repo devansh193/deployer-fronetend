@@ -12,7 +12,7 @@ type FetchRepositoriesOptions = {
 };
 
 export const getRepositories = async (
-  options?: FetchRepositoriesOptions
+  options?: FetchRepositoriesOptions,
 ): Promise<Repository[] | null> => {
   try {
     const { userId } = await auth();
@@ -23,13 +23,14 @@ export const getRepositories = async (
     const client = await clerkClient();
     const token = await client.users.getUserOauthAccessToken(
       userId,
-      OAUTH_PROVIDER
+      OAUTH_PROVIDER,
     );
 
     const accessToken = token.data[0]?.token;
     if (!accessToken) {
       throw new Error("No GitHub access token found for user");
     }
+    console.log("This is access token_______________", accessToken);
 
     const url = new URL(GITHUB_API_URL);
     if (options) {
@@ -53,7 +54,7 @@ export const getRepositories = async (
       throw new Error(
         `GitHub API request failed: ${response.status} ${
           response.statusText
-        } - ${JSON.stringify(errorData)}`
+        } - ${JSON.stringify(errorData)}`,
       );
     }
 
