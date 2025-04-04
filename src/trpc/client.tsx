@@ -8,7 +8,8 @@ import { useState } from "react";
 import { makeQueryClient } from "./query-client";
 import type { AppRouter } from "./routers/_app";
 import superjson from "superjson";
-import { APP_URL } from "@/constants";
+
+const APP_URL = "";
 
 export const trpc = createTRPCReact<AppRouter>();
 let clientQueryClientSingleton: QueryClient;
@@ -31,7 +32,7 @@ function getUrl() {
 export function TRPCProvider(
   props: Readonly<{
     children: React.ReactNode;
-  }>
+  }>,
 ) {
   // NOTE: Avoid useState when initializing the query client if you don't
   //       have a suspense boundary between this and the code that may
@@ -51,7 +52,7 @@ export function TRPCProvider(
           },
         }),
       ],
-    })
+    }),
   );
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>

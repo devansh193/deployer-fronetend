@@ -1,12 +1,22 @@
-import { AuthButton } from "@/modules/landing/ui/components/landing-navbar/auth-button";
+"use client";
+import { trpc } from "@/trpc/client";
+import { ErrorBoundary } from "react-error-boundary";
+import { Suspense } from "react";
+import { Navbar } from "@/components/navbar";
+import { TRPCError } from "@trpc/server";
 
 export const DashboardNavbar = () => {
   return (
-    <nav className="fixed top-0 right-0 left-0 flex h-14 items-center justify-between bg-[#0A0A0A] px-4">
-      <div className="text-white">This is left side</div>
-      <div className="text-white">
-        <AuthButton />
-      </div>
-    </nav>
+    <Suspense>
+      <ErrorBoundary fallback={<p>Error...</p>}>
+        <DashboardNavbarSuspense />
+      </ErrorBoundary>
+    </Suspense>
   );
+};
+
+export const DashboardNavbarSuspense = () => {
+  const [data] = trpc.dashboard.getUser.useSuspenseQuery();
+  if (!data) throw new TRPCError({ code: "NOT_FOUND" });
+  return <Navbar username={data.userName} />;
 };
