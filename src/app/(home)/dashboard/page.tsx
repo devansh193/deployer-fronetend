@@ -8,7 +8,6 @@ interface PageProps {
 
 const Page = async ({ searchParams }: PageProps) => {
   const { q } = await searchParams;
-  void trpc.dashboard.getUser.prefetch();
   void trpc.project.getProjects.prefetch({ q });
   return (
     <HydrateClient>

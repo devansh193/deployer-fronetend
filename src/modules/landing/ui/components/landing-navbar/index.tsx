@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AuthButton } from "./auth-button";
+import { AuthButton } from "@/modules/auth/ui/components/auth-button";
 
 export const LandingNavbar = () => {
   return (

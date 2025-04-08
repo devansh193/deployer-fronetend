@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export const MainSection = () => {
   return (
@@ -47,12 +48,14 @@ export const MainSection = () => {
             scaling.
           </p>
           <div className="flex flex-col items-center justify-center gap-3 pt-4 sm:flex-row sm:gap-4">
-            <Button
-              size="lg"
-              className="font-geist gap-2 bg-white font-medium text-black transition-colors hover:bg-neutral-200 sm:w-auto"
-            >
-              Start Deploying <ArrowRight size={16} />
-            </Button>
+            <Link href={"/dashboard"}>
+              <Button
+                size="lg"
+                className="font-geist gap-2 bg-white font-medium text-black transition-colors hover:cursor-pointer hover:bg-neutral-200 sm:w-auto"
+              >
+                Start Deploying <ArrowRight size={16} />
+              </Button>
+            </Link>
           </div>
 
           <div className="mt-4 text-xs text-gray-500 sm:mt-6 sm:text-sm">
