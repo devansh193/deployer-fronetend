@@ -6,9 +6,7 @@ import {
 } from "@/trpc/init";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { clerkClient } from "@clerk/nextjs/server";
-
-const GITHUB_URL = "https://api.github.com/user/repos";
+import { getRepositories } from "@/app/actions/github-actions";
 
 export const githubRouter = createTRPCRouter({
   hello: baseProcedure
@@ -22,22 +20,20 @@ export const githubRouter = createTRPCRouter({
         greeting: `hello ${opts.input.text}`,
       };
     }),
-  getRepositories: protectedProcedure.query(async ({ ctx }) => {
-    const { id: userId } = ctx.user;
-    const client = await clerkClient();
-    const access_token = await client.users.getUserOauthAccessToken(
-      userId,
-      "oauth_github",
-    );
+  getRepositories: protectedProcedure.query(async () => {
     try {
-      const response = await axios.get(GITHUB_URL, {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          Accept: "application/vnd.github.v3+json",
-          "User-Agent": "deployer",
-        },
-      });
-      return response.data;
+      const response = await getRepositories();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const repos = response?.map((repo: any) => ({
+        id: repo.id,
+        name: repo.name,
+        private: repo.private,
+        description: repo.description,
+        html_url: repo.html_url,
+        updated_at: repo.updated_at,
+      }));
+      console.log(response);
+      return repos;
     } catch (error) {
       console.log(error);
       if (axios.isAxiosError(error)) {

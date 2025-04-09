@@ -1,3 +1,4 @@
+"use server";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { type Repository } from "@/types/index";
 
@@ -40,7 +41,6 @@ export const getRepositories = async (
         }
       });
     }
-
     const response = await fetch(url.toString(), {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -57,8 +57,8 @@ export const getRepositories = async (
         } - ${JSON.stringify(errorData)}`,
       );
     }
-
     const repositories: Repository[] = await response.json();
+    console.log(repositories);
     return repositories;
   } catch (error) {
     console.error("Failed to fetch repositories:", {
