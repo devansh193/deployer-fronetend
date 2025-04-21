@@ -1,26 +1,24 @@
 "use client";
 
+import { useRepositorySearch } from "@/modules/github/hooks/use-repository-filter";
 import { trpc } from "@/trpc/client";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-interface ProjectSectionProps {
-  q: string | undefined;
-}
-
-export const ProjectSection = ({ q }: ProjectSectionProps) => {
+export const ProjectSection = () => {
   return (
     <Suspense>
       <ErrorBoundary fallback={<p>Error...</p>}>
-        <ProjectSectionSuspense q={q} />
+        <ProjectSectionSuspense />
       </ErrorBoundary>
     </Suspense>
   );
 };
 
-const ProjectSectionSuspense = ({ q }: ProjectSectionProps) => {
+const ProjectSectionSuspense = () => {
+  const [filter] = useRepositorySearch();
   const [projects] = trpc.project.getProjects.useSuspenseQuery({
-    q,
+    q: filter,
   });
   return (
     <div>
@@ -30,7 +28,7 @@ const ProjectSectionSuspense = ({ q }: ProjectSectionProps) => {
           <h1 className="text-white">No projects are there</h1>
         </div>
       )}
-      {q === "apple" && <h1 className="text-white">THis is test query</h1>}
+      {filter === "apple" && <h1 className="text-white">THis is test query</h1>}
       <div>
         {projects.map((project) => (
           <div key={project.id}>

@@ -8,7 +8,7 @@ export const projectRouter = createTRPCRouter({
   getProjects: protectedProcedure
     .input(
       z.object({
-        q: z.string().nullish(),
+        q: z.string().nullable().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
