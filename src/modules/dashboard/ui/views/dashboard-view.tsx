@@ -3,11 +3,7 @@ import { SearchInput } from "@/modules/projects/ui/project-search-input";
 import { ProjectSection } from "@/modules/projects/ui/sections/project-section";
 import Link from "next/link";
 
-interface DashboardViewProps {
-  q: string | undefined;
-}
-
-export const DashboardView = ({ q }: DashboardViewProps) => {
+export const DashboardView = () => {
   return (
     <div className="mx-auto mb-10 flex max-w-[2400px] flex-col gap-y-6 px-4 pt-2.5">
       <div className="flex items-center justify-center gap-x-2">
@@ -18,7 +14,7 @@ export const DashboardView = ({ q }: DashboardViewProps) => {
           </Link>
         </Button>
       </div>
-      <ProjectSection q={q} />
+      <ProjectSection />
     </div>
   );
 };

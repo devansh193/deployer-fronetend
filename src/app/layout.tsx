@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
 import { TRPCProvider } from "@/trpc/client";
 
@@ -30,7 +31,9 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <TRPCProvider>{children}</TRPCProvider>
+          <NuqsAdapter>
+            <TRPCProvider>{children}</TRPCProvider>
+          </NuqsAdapter>
         </body>
       </html>
     </ClerkProvider>
