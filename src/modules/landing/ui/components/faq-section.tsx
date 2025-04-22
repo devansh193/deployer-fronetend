@@ -77,7 +77,7 @@ const FAQSection = () => {
           </p>
           <Button
             variant="outline"
-            className="font-geist bg-white font-medium text-black"
+            className="font-geist border border-[#363636] bg-[#242424] font-medium text-white hover:cursor-pointer hover:border-[#363636] hover:bg-[#242424] hover:text-white"
           >
             Contact Support
           </Button>

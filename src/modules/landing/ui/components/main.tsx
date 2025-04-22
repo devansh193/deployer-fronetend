@@ -36,7 +36,7 @@ export const MainSection = () => {
 
           <h1 className="px-2 text-3xl font-bold tracking-tight text-white sm:px-0 sm:text-4xl md:text-5xl lg:text-6xl">
             Deploy Your Projects to the{" "}
-            <span className="bg-gradient-to-r from-green-500 to-teal-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">
               Global Edge
             </span>{" "}
             in Seconds
@@ -49,10 +49,7 @@ export const MainSection = () => {
           </p>
           <div className="flex flex-col items-center justify-center gap-3 pt-4 sm:flex-row sm:gap-4">
             <Link href={"/dashboard"}>
-              <Button
-                size="lg"
-                className="font-geist gap-2 bg-white font-medium text-black transition-colors hover:cursor-pointer hover:bg-neutral-200 sm:w-auto"
-              >
+              <Button size="lg" variant={"custom"}>
                 Start Deploying <ArrowRight size={16} />
               </Button>
             </Link>

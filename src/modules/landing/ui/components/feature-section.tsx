@@ -76,11 +76,9 @@ export const FeatureSection = () => {
           </p>
           <Button
             size="lg"
-            className="bg-gradient-to-r from-green-500 to-teal-400 px-8"
+            className="font-geist gap-2 border border-[#148253] bg-[#00623A] text-white transition-colors hover:cursor-pointer hover:bg-[#2C7051] sm:w-auto"
           >
-            <h1 className="font-geist font-medium text-black">
-              Start Deploying Now
-            </h1>
+            <h1 className="font-geist font-medium">Start Deploying Now</h1>
           </Button>
         </div>
       </div>

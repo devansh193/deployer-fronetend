@@ -1,8 +1,8 @@
+export const dynamic = "force-dynamic";
+import type { SearchParams } from "nuqs/server";
+import { HydrateClient, trpc } from "@/trpc/server";
 import { DashboardView } from "@/modules/dashboard/ui/views/dashboard-view";
 import { loadRepositoryFilter } from "@/modules/github/search-params";
-import { HydrateClient, trpc } from "@/trpc/server";
-import type { SearchParams } from "nuqs/server";
-export const dynamic = "force-dynamic";
 
 interface PageProps {
   searchParams: Promise<SearchParams>;
