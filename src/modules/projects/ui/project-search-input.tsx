@@ -21,8 +21,8 @@ export const SearchInput = () => {
   }, [debounceValue, inputValue, setSearchTerm]);
 
   return (
-    <div className="flex w-full">
-      <div className="relative w-full">
+    <div className="flex">
+      <div className="relative">
         <div className="absolute top-1/2 left-3 -translate-y-1/2 text-neutral-400">
           <Search size={18} />
         </div>
@@ -33,12 +33,12 @@ export const SearchInput = () => {
           }}
           type="text"
           placeholder="Search Repositories and Projects..."
-          className="font-geist w-full rounded-md border-[2px] border-[#242424] bg-transparent py-2 pr-10 pl-10 text-white outline-none placeholder:text-neutral-400 focus:ring-2 focus:ring-white/10"
+          className="font-geist w-full rounded-md border-[2px] border-[#242424] bg-transparent pl-10 text-white outline-none placeholder:text-xs placeholder:text-neutral-400 focus:ring-2 focus:ring-white/10"
           aria-label="Search"
         />
         {loading && (
           <div className="absolute top-1/2 right-3 -translate-y-1/2 animate-spin text-neutral-400">
-            <LoaderIcon size={18} />
+            <LoaderIcon size={16} />
           </div>
         )}
       </div>

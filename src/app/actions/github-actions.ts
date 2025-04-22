@@ -6,10 +6,9 @@ const GITHUB_API_URL = "https://api.github.com/user/repos";
 const OAUTH_PROVIDER = "github";
 
 type FetchRepositoriesOptions = {
-  page?: number;
   per_page?: number;
+  page?: number;
   sort?: "created" | "updated" | "pushed" | "full_name";
-  direction?: "asc" | "desc";
 };
 
 export const getRepositories = async (
@@ -21,6 +20,7 @@ export const getRepositories = async (
       console.warn("Unauthorized attempt to access repositories");
       return null;
     }
+
     const client = await clerkClient();
     const token = await client.users.getUserOauthAccessToken(
       userId,
@@ -31,7 +31,6 @@ export const getRepositories = async (
     if (!accessToken) {
       throw new Error("No GitHub access token found for user");
     }
-    console.log("This is access token_______________", accessToken);
 
     const url = new URL(GITHUB_API_URL);
     if (options) {
@@ -41,6 +40,7 @@ export const getRepositories = async (
         }
       });
     }
+
     const response = await fetch(url.toString(), {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -49,6 +49,7 @@ export const getRepositories = async (
       },
       cache: "no-store",
     });
+
     if (!response.ok) {
       const errorData = await response.json().catch(() => null);
       throw new Error(
@@ -57,8 +58,8 @@ export const getRepositories = async (
         } - ${JSON.stringify(errorData)}`,
       );
     }
+
     const repositories: Repository[] = await response.json();
-    console.log(repositories);
     return repositories;
   } catch (error) {
     console.error("Failed to fetch repositories:", {

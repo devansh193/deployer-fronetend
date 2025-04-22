@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4 md:gap-8">
           <div className="col-span-1 md:col-span-1">
             <div className="mb-4 flex items-center gap-2">
-              <div className="h-8 w-8 rounded-lg bg-green-500"></div>
+              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-green-500 to-teal-300"></div>
               <span className="text-xl font-bold text-white">Deplawyer</span>
             </div>
             <p className="mb-6 text-gray-400">
