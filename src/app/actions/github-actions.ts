@@ -1,4 +1,5 @@
 "use server";
+
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { type Repository } from "@/types/index";
 
@@ -6,37 +7,45 @@ const GITHUB_API_URL = "https://api.github.com/user/repos";
 const OAUTH_PROVIDER = "github";
 
 type FetchRepositoriesOptions = {
-  per_page?: number;
+  perPage?: number;
   page?: number;
   sort?: "created" | "updated" | "pushed" | "full_name";
 };
+
+export type GetRepositoriesResponse = Awaited<
+  ReturnType<typeof getRepositories>
+>;
 
 export const getRepositories = async (
   options?: FetchRepositoriesOptions,
 ): Promise<Repository[] | null> => {
   try {
     const { userId } = await auth();
+
     if (!userId) {
       console.warn("Unauthorized attempt to access repositories");
       return null;
     }
 
-    const client = await clerkClient();
-    const token = await client.users.getUserOauthAccessToken(
+    const userClient = await clerkClient();
+    const oauthTokens = await userClient.users.getUserOauthAccessToken(
       userId,
       OAUTH_PROVIDER,
     );
 
-    const accessToken = token.data[0]?.token;
+    const accessToken = oauthTokens.data[0]?.token;
+
     if (!accessToken) {
       throw new Error("No GitHub access token found for user");
     }
 
     const url = new URL(GITHUB_API_URL);
+
     if (options) {
       Object.entries(options).forEach(([key, value]) => {
         if (value !== undefined) {
-          url.searchParams.append(key, value.toString());
+          const paramKey = key === "perPage" ? "per_page" : key;
+          url.searchParams.append(paramKey, value.toString());
         }
       });
     }
@@ -53,9 +62,7 @@ export const getRepositories = async (
     if (!response.ok) {
       const errorData = await response.json().catch(() => null);
       throw new Error(
-        `GitHub API request failed: ${response.status} ${
-          response.statusText
-        } - ${JSON.stringify(errorData)}`,
+        `GitHub API request failed: ${response.status} ${response.statusText} - ${JSON.stringify(errorData)}`,
       );
     }
 
